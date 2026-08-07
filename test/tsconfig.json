@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["**/*"],
+  "compilerOptions": {
+    "rootDir": "..",
+    "noEmit": true,
+    // Tests run in Node via `node --test`, so they need the Node ambient types
+    "types": ["node"]
+  }
+}
