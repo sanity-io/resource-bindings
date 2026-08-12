@@ -1,6 +1,6 @@
 {
   "name": "@sanity/resource-bindings",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Helpers and type definitions for binding Sanity resources",
   "keywords": [
     "sanity",
