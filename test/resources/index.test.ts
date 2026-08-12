@@ -6,14 +6,14 @@ import {createResourceRef, type ResourceRef} from '../../src/index.ts'
 const SCRIPT_ID = 'sanity-resource-bindings'
 
 const BINDINGS = [
-  {id: 'cors-1', name: 'localhost', type: 'sanity.project.cors'},
-  {id: 'dataset-1', name: 'production', type: 'sanity.project.dataset'},
+  {id: 'project-2:cors-1', name: 'localhost', type: 'sanity.project.cors'},
+  {id: 'project-2:dataset-1', name: 'production', type: 'sanity.project.dataset'},
   {id: 'project-1', name: 'my-project', type: 'sanity.project'},
   {id: 'role-1', name: 'editor', type: 'sanity.access.role'},
   {id: 'studio-1', name: 'my-studio', type: 'sanity.studio'},
   // Deliberately reuses the `my-project` name under a different type, so the
   // tests can prove lookups are scoped by type and not by name alone.
-  {id: 'dataset-2', name: 'my-project', type: 'sanity.project.dataset'},
+  {id: 'project-2:dataset-2', name: 'my-project', type: 'sanity.project.dataset'},
 ]
 
 /**
