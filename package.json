@@ -1,0 +1,64 @@
+{
+  "name": "@sanity/resource-bindings",
+  "version": "0.0.0",
+  "description": "Helpers and type definitions for binding Sanity resources",
+  "keywords": [
+    "sanity",
+    "browser",
+    "resources",
+    "bindings",
+    "types"
+  ],
+  "homepage": "https://github.com/sanity-io/resource-bindings#readme",
+  "bugs": {
+    "url": "https://github.com/sanity-io/resource-bindings/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sanity-io/resource-bindings.git"
+  },
+  "license": "MIT",
+  "author": "Sanity.io <hello@sanity.io>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "coverage": "node --test --experimental-test-coverage \"test/**/*.test.ts\"",
+    "lint": "biome check .",
+    "lint:write": "biome check --write .",
+    "posttest": "npm run lint",
+    "prepare": "npm run build",
+    "pretest": "npm run typecheck",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p test/tsconfig.json"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@types/node": "^22",
+    "rimraf": "^6.1.3",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
