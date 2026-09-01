@@ -36,7 +36,7 @@ const RESOURCE_CONFIG_MAP: Record<keyof ResourceRef, ResourceTypeConfig> = {
 }
 
 /**
- * The shape of the resources in the script element
+ * The shape of a resource binding baked into the module graph.
  */
 interface ResourceBinding {
   id: string
@@ -44,15 +44,18 @@ interface ResourceBinding {
   type: string
 }
 
+declare global {
+  /**
+   * Set as a side effect by the statically-imported, deploy-time-baked bindings
+   * module, which runs before any app code. Absent when the bundle is used
+   * without that module (e.g. this package standalone).
+   */
+  var __SANITY_RESOURCE_BINDINGS__: ResourceBinding[] | undefined
+}
+
 function getBindings(): ResourceBinding[] {
-  let bindings: ResourceBinding[]
-  const el = document.getElementById('sanity-resource-bindings')
-  try {
-    bindings = el ? (JSON.parse(el.textContent || '[]') as ResourceBinding[]) : []
-  } catch {
-    bindings = []
-  }
-  return bindings
+  const bindings = globalThis.__SANITY_RESOURCE_BINDINGS__
+  return Array.isArray(bindings) ? bindings : []
 }
 
 /**
