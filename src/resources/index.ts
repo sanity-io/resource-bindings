@@ -55,7 +55,6 @@ declare global {
 
 function getBindings(): ResourceBinding[] {
   const bindings = globalThis.__SANITY_RESOURCE_BINDINGS__
-  console.log('getBindings', bindings)
   return Array.isArray(bindings) ? bindings : []
 }
 
