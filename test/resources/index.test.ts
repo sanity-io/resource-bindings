@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import {afterEach, describe, it} from 'node:test'
+import {afterEach, describe, it, type TestContext} from 'node:test'
 
 import {createResourceRef, type ResourceRef} from '../../src/index.ts'
 
@@ -76,5 +76,15 @@ describe('resourceRef', () => {
     const resourceRef = setBindings('{not an array')
 
     assert.throws(() => resourceRef.project('my-project'), /Unable to find project with name my-project/)
+  })
+
+  it('loads the latest bindings if they are set after creating the ref', (t: TestContext) => {
+    const resourceRef = createResourceRef()
+
+    const newProject = {id: 'new-project', name: 'new-project', type: 'sanity.project'}
+
+    setBindings([newProject])
+
+    t.assert.deepStrictEqual(resourceRef.project('new-project'), newProject.id)
   })
 })

@@ -27,13 +27,13 @@ type ResourceTypeConfig = {
 /**
  * A map of supported resource types to their blueprint-specific information.
  */
-const RESOURCE_CONFIG_MAP: Record<keyof ResourceRef, ResourceTypeConfig> = {
+const RESOURCE_CONFIG_MAP: Record<keyof ResourceRef, ResourceTypeConfig> = Object.freeze({
   cors: {type: 'sanity.project.cors', hasProjectPrefix: true},
   dataset: {type: 'sanity.project.dataset', hasProjectPrefix: true},
   project: {type: 'sanity.project'},
   role: {type: 'sanity.access.role'},
   studio: {type: 'sanity.studio'},
-}
+})
 
 /**
  * The shape of a resource binding baked into the module graph.
@@ -66,11 +66,12 @@ function getBindings(): ResourceBinding[] {
  * ```
  */
 export function createResourceRef(): ResourceRef {
-  const bindings = getBindings()
-
   function lookup(resourceType: keyof ResourceRef): (name: string) => string {
+    const data = RESOURCE_CONFIG_MAP[resourceType]
+
     return (name: string) => {
-      const data = RESOURCE_CONFIG_MAP[resourceType]
+      // get bindings as late as possible in case they are injected during a build
+      const bindings = getBindings()
       const found = bindings.find((b) => b.name === name && b.type === data.type)
       if (!found) {
         throw new Error(`Unable to find ${resourceType} with name ${name}`)
