@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/sanity-io/resource-bindings/compare/v1.0.0...v1.0.1) (2026-11-18)
+
+
+### Miscellaneous Chores
+
+* release 1.0.1 ([#6](https://github.com/sanity-io/resource-bindings/issues/6)) ([70372af](https://github.com/sanity-io/resource-bindings/commit/70372af531f25d38120a310e99876ca79e950f54))
+
 ## 1.0.0 (2026-11-18)
 
 
