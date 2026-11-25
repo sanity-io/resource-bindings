@@ -1,7 +1,7 @@
 /**
  * The interface through which users can lookup identifiers using a blueprint resource name.
  */
-export type ResourceRef = {
+export type ResourceReference = {
   /** Lookup a CORS origin ID */
   cors: (name: string) => string
   /** Lookup a Dataset name */
@@ -27,7 +27,7 @@ type ResourceTypeConfig = {
 /**
  * A map of supported resource types to their blueprint-specific information.
  */
-const RESOURCE_CONFIG_MAP: Record<keyof ResourceRef, ResourceTypeConfig> = Object.freeze({
+const RESOURCE_CONFIG_MAP: Record<keyof ResourceReference, ResourceTypeConfig> = Object.freeze({
   cors: {type: 'sanity.project.cors', hasProjectPrefix: true},
   dataset: {type: 'sanity.project.dataset', hasProjectPrefix: true},
   project: {type: 'sanity.project'},
@@ -65,8 +65,8 @@ function getBindings(): ResourceBinding[] {
  * resourceRef.project('my-project') // returns the project ID
  * ```
  */
-export function createResourceRef(): ResourceRef {
-  function lookup(resourceType: keyof ResourceRef): (name: string) => string {
+export function createResourceReference(): ResourceReference {
+  function lookup(resourceType: keyof ResourceReference): (name: string) => string {
     const data = RESOURCE_CONFIG_MAP[resourceType]
 
     return (name: string) => {
@@ -91,3 +91,5 @@ export function createResourceRef(): ResourceRef {
     studio: lookup('studio'),
   }
 }
+
+export default createResourceReference()
