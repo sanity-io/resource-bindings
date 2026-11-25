@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
-import {afterEach, describe, it, type TestContext} from 'node:test'
+import {afterEach, describe, it} from 'node:test'
 
-import {createResourceRef, type ResourceRef} from '../../src/index.ts'
+import {type ResourceReference, resources} from '../../src/index.ts'
 
 const BINDINGS = [
   {id: 'project-2:cors-1', name: 'localhost', type: 'sanity.project.cors'},
@@ -14,22 +14,16 @@ const BINDINGS = [
   {id: 'project-2:dataset-2', name: 'my-project', type: 'sanity.project.dataset'},
 ]
 
-/**
- * The deploy-time-baked module sets `globalThis.__SANITY_RESOURCE_BINDINGS__`
- * before any app code runs, and `createResourceRef()` reads it on call. Setting
- * the global (or leaving it unset) reproduces every deployment shape.
- */
-function setBindings(bindings?: unknown): ResourceRef {
+function setBindings(bindings?: unknown): ResourceReference {
   globalThis.__SANITY_RESOURCE_BINDINGS__ = bindings as never
-  return createResourceRef()
+  return resources
 }
 
 afterEach(() => {
-  // The global is shared across tests, so clear it or it leaks into the next.
   globalThis.__SANITY_RESOURCE_BINDINGS__ = undefined
 })
 
-describe('resourceRef', () => {
+describe('resources', () => {
   it('should have functions for each resource type', () => {
     const resourceRef = setBindings(BINDINGS)
     const types = ['cors', 'dataset', 'project', 'role', 'studio']
@@ -65,9 +59,7 @@ describe('resourceRef', () => {
   })
 
   it('treats an unset global as having no bindings', () => {
-    const resourceRef = createResourceRef()
-
-    assert.throws(() => resourceRef.project('my-project'), /Unable to find project with name my-project/)
+    assert.throws(() => resources.project('my-project'), /Unable to find project with name my-project/)
   })
 
   it('treats a non-array global as having no bindings', () => {
@@ -76,15 +68,5 @@ describe('resourceRef', () => {
     const resourceRef = setBindings('{not an array')
 
     assert.throws(() => resourceRef.project('my-project'), /Unable to find project with name my-project/)
-  })
-
-  it('loads the latest bindings if they are set after creating the ref', (t: TestContext) => {
-    const resourceRef = createResourceRef()
-
-    const newProject = {id: 'new-project', name: 'new-project', type: 'sanity.project'}
-
-    setBindings([newProject])
-
-    t.assert.deepStrictEqual(resourceRef.project('new-project'), newProject.id)
   })
 })
