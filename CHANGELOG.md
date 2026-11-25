@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/sanity-io/resource-bindings/compare/v1.0.1...v1.1.0) (2026-11-25)
+
+
+### Features
+
+* direct access to resources without creating a reference ([#8](https://github.com/sanity-io/resource-bindings/issues/8)) ([e144cbe](https://github.com/sanity-io/resource-bindings/commit/e144cbe52c17e3daf26d1b69bd9e6a42ed600952))
+
 ## [1.0.1](https://github.com/sanity-io/resource-bindings/compare/v1.0.0...v1.0.1) (2026-11-18)
 
 
