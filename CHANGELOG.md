@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/sanity-io/resource-bindings/compare/v1.1.0...v2.0.0) (2026-11-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove unused access points ([#10](https://github.com/sanity-io/resource-bindings/issues/10))
+
+### Features
+
+* remove unused access points ([#10](https://github.com/sanity-io/resource-bindings/issues/10)) ([1fb323d](https://github.com/sanity-io/resource-bindings/commit/1fb323db408de87e46babec3c905d342206f39cf))
+
 ## [1.1.0](https://github.com/sanity-io/resource-bindings/compare/v1.0.1...v1.1.0) (2026-11-25)
 
 
